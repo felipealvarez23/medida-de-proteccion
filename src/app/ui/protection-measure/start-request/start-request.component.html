@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="card mx-auto mp-card d-flex">
+    <div class="card-body">
+      <h5 class="card-title text-center mb-4">Solicitud medida de protección</h5>
+      <form [formGroup]="startRequestForm">
+        <div class="mb-3">
+          <label class="form-label">Tipo de solicitud</label>
+          <select  [formControlName]="'type'" class="form-select" aria-label="Default select example">
+            <option selected>Seleccione una opcion...</option>
+            <option value="1">A nombre propio</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="id-number" class="form-label">Numero de identificación</label>
+          <input
+            type="text"
+            class="form-control"
+            id="id-number"
+            [ngClass]="(startRequestForm.get('documentNumber')?.touched || startRequestForm.get('documentNumber')?.dirty) &&
+              startRequestForm.get('documentNumber')?.errors ? 'is-invalid': ''"
+            aria-describedby="emailHelp"
+            [formControlName]="'documentNumber'"
+          >
+          <div class="invalid-feedback">
+            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('required')">
+              Campo obligatorio
+            </p>
+            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('pattern')">
+              Solo se permiten valores numericos
+            </p>
+            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('maxlength')">
+              {{ 'Longitud maxima ' + startRequestForm.get('documentNumber')?.errors?.maxlength?.requiredLength + ' caracteres' }}
+            </p>
+            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('minlength')">
+              {{ 'Longitud minima ' + startRequestForm.get('documentNumber')?.errors?.minlength?.requiredLength + ' caracteres' }}
+            </p>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="form-label">Correo electronico</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            [ngClass]="(startRequestForm.get('email')?.touched || startRequestForm.get('email')?.dirty) &&
+              startRequestForm.get('email')?.errors ? 'is-invalid': ''"
+            [formControlName]="'email'"
+          >
+          <div class="invalid-feedback">
+            <p *ngIf="startRequestForm.get('email')?.hasError('required')">
+              Campo obligatorio
+            </p>
+          </div>
+        </div>
+        <div class="row justify-content-center mb-3">
+          <button
+            class="btn btn-dark"
+            style="width: 150px"
+            [disabled]="startRequestForm.invalid"
+          >
+            Comenzar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
