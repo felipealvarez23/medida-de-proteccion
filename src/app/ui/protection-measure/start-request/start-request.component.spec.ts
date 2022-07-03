@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StartRequestComponent } from './start-request.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('StartRequestComponent', () => {
   let component: StartRequestComponent;
@@ -8,7 +9,8 @@ describe('StartRequestComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StartRequestComponent ]
+      declarations: [ StartRequestComponent ],
+      imports: [ReactiveFormsModule, FormsModule]
     })
     .compileComponents();
   });

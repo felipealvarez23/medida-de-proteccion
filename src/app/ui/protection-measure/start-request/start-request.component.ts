@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -8,9 +8,15 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class StartRequestComponent implements OnInit {
 
-  startRequestForm: FormGroup;
+  startRequestForm: FormGroup | undefined;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.buildStartRequestForm();
+  }
+
+  private buildStartRequestForm() {
     this.startRequestForm = this.fb.group({
       type: ['', [Validators.required]],
       documentNumber: [ '', [
@@ -26,6 +32,5 @@ export class StartRequestComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
 
 }
