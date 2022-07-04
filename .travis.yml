@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - 9
+branches:
+  only:
+    - trunk
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
