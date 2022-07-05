@@ -16,4 +16,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class ProtectionMeasureRoutingModule {};
+export class ProtectionMeasureRoutingModule {}
