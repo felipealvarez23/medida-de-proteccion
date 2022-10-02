@@ -5,50 +5,32 @@
       <form [formGroup]="startRequestForm">
         <div class="mb-3">
           <label class="form-label">Tipo de solicitud</label>
-          <select  [formControlName]="'type'" class="form-select" aria-label="Default select example">
-            <option selected>Seleccione una opcion...</option>
-            <option value="1">A nombre propio</option>
+          <select  [formControlName]="'type'" class="form-select">
+            <option value="RT-01">Solicitud a nombre propio</option>
+            <option value="RT-02">Solicitud a nombre de un tercero</option>
           </select>
         </div>
-        <div class="mb-3">
-          <label for="id-number" class="form-label">Numero de identificación</label>
+        <div class="mb-4">
+          <label for="document-number" class="form-label">Numero de documento</label>
           <input
             type="text"
             class="form-control"
-            id="id-number"
-            [ngClass]="(startRequestForm.get('documentNumber')?.touched || startRequestForm.get('documentNumber')?.dirty) &&
-              startRequestForm.get('documentNumber')?.errors ? 'is-invalid': ''"
-            aria-describedby="emailHelp"
-            [formControlName]="'documentNumber'"
+            id="document-number"
           >
-          <div class="invalid-feedback">
-            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('required')">
-              Campo obligatorio
-            </p>
-            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('pattern')">
-              Solo se permiten valores numericos
-            </p>
-            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('maxlength')">
-              {{ 'Longitud maxima ' + startRequestForm.get('documentNumber')?.errors?.maxlength?.requiredLength + ' caracteres' }}
-            </p>
-            <p *ngIf="startRequestForm.get('documentNumber')?.hasError('minlength')">
-              {{ 'Longitud minima ' + startRequestForm.get('documentNumber')?.errors?.minlength?.requiredLength + ' caracteres' }}
-            </p>
-          </div>
         </div>
         <div class="mb-4">
-          <label for="email" class="form-label">Correo electronico</label>
+          <label for="contact-info" class="form-label">Información de contacto</label>
           <input
             type="text"
             class="form-control"
-            id="email"
-            aria-describedby="emailHelp"
-            [ngClass]="(startRequestForm.get('email')?.touched || startRequestForm.get('email')?.dirty) &&
-              startRequestForm.get('email')?.errors ? 'is-invalid': ''"
-            [formControlName]="'email'"
+            id="contact-info"
+            [ngClass]="(startRequestForm.get('contactInfo')?.touched || startRequestForm.get('contactInfo')?.dirty) &&
+              startRequestForm.get('contactInfo')?.errors ? 'is-invalid': ''"
+            [formControlName]="'contactInfo'"
           >
+          <div class="form-text">Correo electronico ó celular del solicitante</div>
           <div class="invalid-feedback">
-            <p *ngIf="startRequestForm.get('email')?.hasError('required')">
+            <p *ngIf="startRequestForm.get('contactInfo')?.hasError('required')">
               Campo obligatorio
             </p>
           </div>
@@ -58,7 +40,9 @@
             class="btn btn-dark"
             style="width: 150px"
             [disabled]="startRequestForm.invalid"
+            (click)="continue()"
           >
+            <span *ngIf="loadingFlag" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Comenzar
           </button>
         </div>
