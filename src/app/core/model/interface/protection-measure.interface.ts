@@ -4,5 +4,6 @@ export interface ProtectionMeasurePayload {
 
 export interface ProtectionMeasureData {
   type: string;
-  contactInfo: string;
+  documentType: string;
+  documentNumber: string;
 }

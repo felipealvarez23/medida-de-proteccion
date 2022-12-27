@@ -25,6 +25,14 @@ export class StartRequestComponent implements OnInit {
     this.buildStartRequestForm();
   }
 
+  private buildStartRequestForm() {
+    this.startRequestForm = this.fb.group({
+      type: ['', [Validators.required]],
+      documentType: ['', Validators.required],
+      documentNumber: ['', Validators.required]
+    });
+  }
+
   continue() {
     this.loadingFlag = true;
     const payload = this.buildProMeasurePayload();
@@ -37,19 +45,10 @@ export class StartRequestComponent implements OnInit {
     return {
       data: {
         type: this.startRequestForm.get('type')?.value,
-        contactInfo: this.startRequestForm.get('contactInfo')?.value
+        documentNumber: this.startRequestForm.get('documentNumber')?.value,
+        documentType: this.startRequestForm.get('documentType')?.value,
       }
     }
-  }
-
-  private buildStartRequestForm() {
-    this.startRequestForm = this.fb.group({
-      type: ['', [Validators.required]],
-      contactInfo: ['', [
-        Validators.required,
-        Validators.email
-      ]]
-    });
   }
 
 }

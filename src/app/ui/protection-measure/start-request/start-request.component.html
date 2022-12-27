@@ -6,8 +6,15 @@
         <div class="mb-3">
           <label class="form-label">Tipo de solicitud</label>
           <select  [formControlName]="'type'" class="form-select">
-            <option value="RT-01">Solicitud a nombre propio</option>
-            <option value="RT-02">Solicitud a nombre de un tercero</option>
+            <option value="1">Solicitud a nombre propio</option>
+            <option value="2">Solicitud a nombre de un tercero</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo de documento</label>
+          <select  [formControlName]="'documentType'" class="form-select">
+            <option value="CC">Cedula de ciudadania</option>
+            <option value="TI">Tarjeta de identidad</option>
           </select>
         </div>
         <div class="mb-4">
@@ -16,24 +23,8 @@
             type="text"
             class="form-control"
             id="document-number"
+            [formControlName]="'documentNumber'"
           >
-        </div>
-        <div class="mb-4">
-          <label for="contact-info" class="form-label">Información de contacto</label>
-          <input
-            type="text"
-            class="form-control"
-            id="contact-info"
-            [ngClass]="(startRequestForm.get('contactInfo')?.touched || startRequestForm.get('contactInfo')?.dirty) &&
-              startRequestForm.get('contactInfo')?.errors ? 'is-invalid': ''"
-            [formControlName]="'contactInfo'"
-          >
-          <div class="form-text">Correo electronico ó celular del solicitante</div>
-          <div class="invalid-feedback">
-            <p *ngIf="startRequestForm.get('contactInfo')?.hasError('required')">
-              Campo obligatorio
-            </p>
-          </div>
         </div>
         <div class="row justify-content-center mb-3">
           <button
