@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProtectionMeasureService} from "../../../core/services/api/protection-measure/protection-measure.service";
-import {ProtectionMeasurePayload} from "../../../core/model/interface/protection-measure.interface";
+import {PMPayload} from "../../../core/model/interface/protection-measure.interface";
 import {finalize} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class StartRequestComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private proMeasureService: ProtectionMeasureService
   ) {
     this.startRequestForm = new FormGroup({});
@@ -25,11 +27,35 @@ export class StartRequestComponent implements OnInit {
     this.buildStartRequestForm();
   }
 
+  get controls(): { [key: string]: AbstractControl } {
+    return this.startRequestForm.controls;
+  }
+
+  getErrorDescription(controlName: string): string {
+    const errors = this.startRequestForm.get(controlName)?.errors;
+    if (errors?.required) {
+      return 'Campo requerido';
+    } else if(errors?.pattern) {
+      return 'Caracteres invalidos';
+    } else if(errors?.minlength) {
+      return 'La longitud minima del campo es de 4 caracteres';
+    } else if(errors?.maxlength) {
+      return 'La longitud maxima del campo es de 12 caracteres';
+    } else {
+      return '';
+    }
+  }
+
   private buildStartRequestForm() {
     this.startRequestForm = this.fb.group({
-      type: ['', [Validators.required]],
+      applicantModality: ['', Validators.required],
       documentType: ['', Validators.required],
-      documentNumber: ['', Validators.required]
+      documentNumber: ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(12),
+        Validators.pattern(/^[0-9]+$/)
+      ]]
     });
   }
 
@@ -38,10 +64,14 @@ export class StartRequestComponent implements OnInit {
     const payload = this.buildProMeasurePayload();
     this.proMeasureService.startRequest(payload)
       .pipe(finalize(() => this.loadingFlag = false))
-      .subscribe(console.log);
+      .subscribe(response => {
+        if(response.data && response.data.nextStepUrl) {
+          this.router.navigate([response.data.nextStepUrl]);
+        }
+      });
   }
 
-  private buildProMeasurePayload(): ProtectionMeasurePayload {
+  private buildProMeasurePayload(): PMPayload {
     return {
       data: {
         type: this.startRequestForm.get('type')?.value,

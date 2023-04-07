@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "medida-de-proteccion": {
+    "frontend_comisarias": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/medida-de-proteccion",
+            "outputPath": "dist/frontend_comisarias",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "medida-de-proteccion:build:production"
+              "browserTarget": "frontend_comisarias:build:production"
             },
             "development": {
-              "browserTarget": "medida-de-proteccion:build:development"
+              "browserTarget": "frontend_comisarias:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,11 +82,11 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "medida-de-proteccion:build"
+            "browserTarget": "frontend_comisarias:build"
           }
         }
       }
     }
   },
-  "defaultProject": "medida-de-proteccion"
+  "defaultProject": "frontend_comisarias"
 }

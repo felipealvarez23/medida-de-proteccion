@@ -1,9 +1,19 @@
-export interface ProtectionMeasurePayload {
-  data: ProtectionMeasureData;
+export interface PMPayload {
+  data: PMDataPayload;
 }
 
-export interface ProtectionMeasureData {
+export interface PMDataPayload {
   type: string;
   documentType: string;
   documentNumber: string;
+}
+
+export interface PMResponse {
+  data: PMDataResponse;
+}
+
+export interface  PMDataResponse {
+  protectionMeasureId: string;
+  nextStepUrl: string;
+  type: string;
 }
